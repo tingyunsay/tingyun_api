@@ -77,7 +77,6 @@ class QQ_Song(object):
 
     def get_comment(self,url,offset,limit):
         songid = self.get_songid(url)
-        print(songid)
         if songid:
             self.data["topid"] = songid
             self.data["pagenum"] = offset

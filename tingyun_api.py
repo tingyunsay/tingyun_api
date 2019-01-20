@@ -36,7 +36,7 @@ async def wangyiyun_song(request):
         return web.Response(body=text.encode('utf-8'))
 async def qq_song(request):
     #print(request.message)
-    print(request.text())
+    #print(await request.text())
     info = await request.text()
     req = {}
     for tmp in info.split("&"):
@@ -54,10 +54,18 @@ async def qq_song(request):
         return web.Response(body=text.encode('utf-8'))
 async def init(loop):
     app = web.Application(loop=loop)
+    """
     app.router.add_route('GET', '/', index)
     app.router.add_route('GET', '/hello/{name}', hello)
-    app.router.add_route('POST', '/hello/{qq_song}', qq_song)
-    app.router.add_route('POST', '/hello/{wangyiyun_song}', wangyiyun_song)
+    app.router.add_route('POST', '/hello/qq_song', qq_song)
+    app.router.add_route('POST', '/hello/wangyiyun_song', wangyiyun_song)
+    """
+    app.router.add_routes([web.get('/',index),
+                          web.get('/hello/{name}',hello),
+                          web.post('/hello/qq_song',qq_song),
+                          web.post('/hello/wangyiyun_song',wangyiyun_song)
+                ])
+    
     srv = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)
     print('Server started at http://127.0.0.1:8000...')
     return srv
