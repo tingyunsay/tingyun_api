@@ -16,20 +16,26 @@ async def hello(request):
     text = '<h1>hello, %s!</h1>' % request.match_info['name']
     return web.Response(body=text.encode('utf-8'))
 
-async def wangyiyun_song(request):
-    #print(request.message)
-    #print(request.text())
+async def wangyiyun_all(request):
     info = await request.text()
     req = {}
     for tmp in info.split("&"):
         fk = tmp.split('=')
         req[fk[0]] = fk[1]
     
-    if req.get('id') and req.get('offset') and req.get('limit'):
+    if req.get('id') and req.get('offset') and req.get('limit') and req.get('type'):
         ID = req.get('id')
         offset = req.get('offset')
         limit = req.get('limit')
-        text = WYY_Song().get_comment("http://music.163.com/weapi/v1/resource/comments/R_SO_4_{ID}?csrf_token=".format(ID=ID),offset,limit)
+        Type = req.get('type')
+        if Type == "song":
+            text = WYY_All().get_comment("http://music.163.com/weapi/v1/resource/comments/R_SO_4_{ID}?csrf_token=".format(ID=ID),offset,limit)
+        elif Type == "album":
+            text = WYY_All().get_comment("http://music.163.com/weapi/v1/resource/comments/R_AL_3_{ID}?csrf_token=".format(ID=ID),offset,limit)
+        elif Type == "songlist":
+            text = WYY_All().get_comment("http://music.163.com/weapi/v1/resource/comments/A_PL_0_{ID}?csrf_token=".format(ID=ID),offset,limit)
+        else:
+            text = "your param is not in [album , song , songlist] , can not be processed."
         return web.Response(body=json.dumps(text))
     else:
         text = "wrong param , failed"
@@ -63,7 +69,7 @@ async def init(loop):
     app.router.add_routes([web.get('/',index),
                           web.get('/hello/{name}',hello),
                           web.post('/hello/qq_song',qq_song),
-                          web.post('/hello/wangyiyun_song',wangyiyun_song)
+                          web.post('/hello/wangyiyun_all',wangyiyun_all)
                 ])
     
     srv = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)

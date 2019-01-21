@@ -8,12 +8,8 @@ import requests
 import datetime
 import json
 
-
-#网易云歌单评论
-
-
-#网易云歌曲评论
-class WYY_Song(object):
+#网易云歌曲 / 专辑 / 歌单 评论（ 传入url即可）
+class WYY_All(object):
     def __init__(self):
         self.headers = { 
             'Cookie': 'appver=1.5.0.75771;',
