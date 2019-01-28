@@ -14,10 +14,12 @@ python3 tingyun_api.py
 ```
 ## 网易云
 ### post 形式, 参数:   
-id(对应类型下的id:songid,albumid,songlistid)   
-offset(第几页)   
-limit(每一页的评论数)   
-type(类型:song,songlist,singer)
+```
+id  -- 对应类型下的id: songid,albumid,songlistid  
+offset -- 第几页  
+limit  -- 每一页的评论数  
+type -- 类型: song,songlist,singer
+```
 ```
 res=requests.post("http://127.0.0.1:8000/hello/wangyiyun_all",data={"id":"2094881280","offset":"1","limit":10,"type":"songlist"})
 ```
@@ -26,10 +28,12 @@ res=requests.post("http://127.0.0.1:8000/hello/wangyiyun_all",data={"id":"209488
 
 ## QQ
 ### post 形式, 参数:   
-id(对应类型下的id:songid,albumid,songlistid)   
-offset(第几页)   
-limit(每一页的评论数)   
-type(类型:song,songlist,singer)
+```
+id  -- 对应类型下的id: songid,albumid,songlistid  
+offset -- 第几页  
+limit  -- 每一页的评论数  
+type -- 类型: song,songlist,singer
+```
 ```
 res=requests.post("http://127.0.0.1:8000/hello/qq_all",data={"id":"0015rUVB2OUdGA","offset":"1","limit":10,"type":"album"})
 ```
