@@ -4,7 +4,7 @@
 ```
 python3 
 
-pip3 install aiohttp asyncio
+pip3 install aiohttp asyncio pycrypto pyquery requests
 ```
 ### 使用
 ```
