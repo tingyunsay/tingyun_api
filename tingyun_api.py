@@ -40,7 +40,8 @@ async def wangyiyun_all(request):
     else:
         text = "wrong param , failed"
         return web.Response(body=text.encode('utf-8'))
-async def qq_song(request):
+
+async def qq_all(request):
     #print(request.message)
     #print(await request.text())
     info = await request.text()
@@ -49,26 +50,30 @@ async def qq_song(request):
         fk = tmp.split('=')
         req[fk[0]] = fk[1]
     
-    if req.get('id') and req.get('offset') and req.get('limit'):
+    if req.get('id') and req.get('offset') and req.get('limit') and req.get('type'):
         ID = req.get('id')
         offset = req.get('offset')
         limit = req.get('limit')
-        text = QQ_Song().get_comment("https://y.qq.com/n/yqq/song/{ID}.html".format(ID=ID),offset,limit)
+        Type = req.get('type')
+        if Type == "song":
+            text = QQ_Song().get_comment("https://y.qq.com/n/yqq/song/{ID}.html".format(ID=ID),offset,limit)
+        elif Type == "album":
+            text = QQ_Album().get_comment("https://y.qq.com/n/yqq/album/{ID}.html".format(ID=ID),offset,limit)
+        elif Type == "songlist":
+            text = QQ_Songlist().get_comment("https://y.qq.com/n/yqq/playsquare/{ID}.html".format(ID=ID),offset,limit)
+        else:
+            text = "your param is not in [album , song , songlist] , can not be processed."
+        
         return web.Response(body=json.dumps(text))
     else:
         text = "wrong param , failed"
         return web.Response(body=text.encode('utf-8'))
+
 async def init(loop):
     app = web.Application(loop=loop)
-    """
-    app.router.add_route('GET', '/', index)
-    app.router.add_route('GET', '/hello/{name}', hello)
-    app.router.add_route('POST', '/hello/qq_song', qq_song)
-    app.router.add_route('POST', '/hello/wangyiyun_song', wangyiyun_song)
-    """
     app.router.add_routes([web.get('/',index),
                           web.get('/hello/{name}',hello),
-                          web.post('/hello/qq_song',qq_song),
+                          web.post('/hello/qq_all',qq_all),
                           web.post('/hello/wangyiyun_all',wangyiyun_all)
                 ])
     
