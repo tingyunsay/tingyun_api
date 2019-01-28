@@ -82,7 +82,6 @@ class QQ_Album(object):
             self.data["pagenum"] = offset
             self.data["pagesize"] = limit
             res = self.post("https://c.y.qq.com/base/fcgi-bin/fcg_global_comment_h5.fcg",headers=self.headers,data=self.data)
-            #print(res.json())
             return res.json() 
         else:
             logging.warning("get albumid failed , please check url [%s]"%(url))
@@ -158,7 +157,6 @@ class QQ_Song(object):
             self.data["pagenum"] = offset
             self.data["pagesize"] = limit
             res = self.post("https://c.y.qq.com/base/fcgi-bin/fcg_global_comment_h5.fcg",headers=self.headers,data=self.data)
-            #print(res.json())
             return res.json() 
         else:
             logging.warning("get songid failed , please check url [%s]"%(url))
@@ -231,13 +229,11 @@ class QQ_Songlist(object):
     def get_comment(self,url,offset,limit):
         #songid = self.get_songid(url)
         songid = re.search("\d+(?=\.htm)",url).group()
-        print(songid)
         if songid:
             self.data["topid"] = songid
             self.data["pagenum"] = offset
             self.data["pagesize"] = limit
             res = self.post("https://c.y.qq.com/base/fcgi-bin/fcg_global_comment_h5.fcg",headers=self.headers,data=self.data)
-            #print(res.json())
             return res.json() 
         else:
             logging.warning("get songlistid failed , please check url [%s]"%(url))
