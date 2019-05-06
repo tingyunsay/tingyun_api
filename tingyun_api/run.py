@@ -73,8 +73,8 @@ async def init(loop):
     app = web.Application(loop=loop)
     app.router.add_routes([web.get('/',index),
                           web.get('/hello/{name}',hello),
-                          web.post('/hello/qq_all',qq_all),
-                          web.post('/hello/wangyiyun_all',wangyiyun_all)
+                          web.post('/comment/qq_all',qq_all),
+                          web.post('/comment/wangyiyun_all',wangyiyun_all)
                 ])
     
     srv = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)
