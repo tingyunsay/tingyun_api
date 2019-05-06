@@ -1,2 +1,12 @@
-*.py[cod]
 *.log
+*.pyc
+.cache/
+.coverage
+.idea/
+.vscode/
+tingyun_api.egg-info/
+build/
+dist/
+docs/build/
+venv/
+wheelhouse/
