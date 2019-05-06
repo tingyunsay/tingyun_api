@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 #author -- tingyun
 #date -- 20190119
-from wangyiyun_api import *
-from qq_api import *
+from utils.qq_api import *
+from utils.wangyiyun_api import *
 import asyncio
 from aiohttp import web
 import re

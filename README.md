@@ -4,13 +4,13 @@
 ```
 python3 
 
-pip3 install aiohttp asyncio pycrypto pyquery requests
+pip3 install -r requirements.txt 
 ```
 ### 使用
 ```
 git clone https://github.com/tingyunsay/tingyun_api.git
 
-python3 tingyun_api.py
+python3 tingyun_api/run.py
 ```
 ## 网易云
 ### post 形式, 参数:   
