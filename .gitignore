@@ -1,7 +1,7 @@
 *.log
 *.pyc
 .cache/
-.coverage
+.coverage*
 .idea/
 .vscode/
 tingyun_api.egg-info/
