@@ -30,3 +30,14 @@ proxies = [
     "192.168.218.11:9112"
 ]
 
+redis_conf = {
+    #"ip" : "10.1.18.65 ",
+    #"port" : "7001",
+    "ip" : "127.0.0.1",
+    "port" : "6379",
+}
+
+banned_key = "sc:hash:banned:user"
+banned_mid = "sc:hash:banned:mid"
+
+
