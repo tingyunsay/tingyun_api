@@ -2,7 +2,7 @@
 听云api服务，整理各大音乐网站不同类型的评论抓取api，提供统一相同的api  
 ### 依赖
 ```
-python3 
+python3.5.2 +
 
 pip3 install -r requirements.txt 
 ```
