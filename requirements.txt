@@ -4,3 +4,4 @@ asyncio
 pycrypto
 pyquery
 pyquery
+redis
