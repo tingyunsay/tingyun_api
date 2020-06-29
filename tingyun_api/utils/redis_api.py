@@ -17,7 +17,7 @@ class Redis_Api(object):
         self.r = redis.Redis(redis_conf['ip'], redis_conf['port'], db=0)
 
     #获取map
-    def hget_redis(self, ckey):
+    def hgetall_redis(self, ckey):
         r_con = self.r.hgetall(ckey)
         return r_con
 
@@ -30,6 +30,12 @@ class Redis_Api(object):
     def hdel_redis(self, ckey , k ):
         r_con = self.r.hdel(ckey , k )
         return r_con
+
+    #检索uid
+    def hget_redis(self, ckey , k ):
+        r_con = self.r.hget(ckey , k )
+        return r_con
+
 
 if __name__ == "__main__":
 

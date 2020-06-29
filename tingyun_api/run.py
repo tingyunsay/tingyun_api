@@ -78,12 +78,18 @@ async def snapchat(request):
     get_args = request.rel_url.query
     post = await request.post()
     Type = get_args.get('Type') or post.get('Type')
-    uid = post.get('uid') and int(post.get('uid')) or 0
+    uid = post.get('uid')
     text = ""
+    try:
+        uid = int(post.get('uid'))
+    except Exception as e:
+        print("uid 【%s】 not valid , e: %s"%(uid , e))
+        uid = 0
+        err = "uid 【%s】 not valid , e: %s"%(uid , e)
     if Type:
         ckey = banned_key
         if Type == "get":
-            text = Redis_Api().hget_redis(ckey)
+            text = Redis_Api().hgetall_redis(ckey)
             #decode成str
             h = {}
             for k,v in text.items():
@@ -97,8 +103,17 @@ async def snapchat(request):
             #1 or 0
             text = Redis_Api().hdel_redis(ckey , uid )
 
+        elif Type == "search" and uid > 0:
+            #1 or 0
+            text = Redis_Api().hget_redis(ckey , uid )
+            if not text:
+                text = "uid 【%s】 not find." %(uid)
+
+        elif uid == 0:
+            text = err 
+
         else:
-            text = "your param is not in [get , add , remove] , can not be processed."
+            text = "your param is not in [get , add , remove , search] , can not be processed."
 
         return web.Response(body=json.dumps(text))
     else:
@@ -115,8 +130,8 @@ async def init(loop):
         web.post('/snapchat/snapchat',snapchat),
         ])
 
-    srv = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)
-    print('Server started at http://127.0.0.1:8000...')
+    srv = await loop.create_server(app.make_handler(), '127.0.0.1', 18888)
+    print('Server started at http://127.0.0.1:18888...')
     return srv
 
 loop = asyncio.get_event_loop()
